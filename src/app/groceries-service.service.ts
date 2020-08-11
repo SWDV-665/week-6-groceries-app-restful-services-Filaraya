@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable,Subject} from 'rxjs';
 import {map,catchError} from 'rxjs/Operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class GroceriesServiceService {
 
-  items: {};
+  items: any=[];
   
   dataChanged$: Observable<boolean>;
 
@@ -27,7 +28,7 @@ export class GroceriesServiceService {
   }
 
   getItems(){
-    return this.http.get(this.baseURL+'/api/groceries').pipe(
+    return this.http.get(`${this.baseURL}+/api/groceries`).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
@@ -51,9 +52,9 @@ export class GroceriesServiceService {
   }
 
   
-  removeItem(id) {
-    console.log ("### REmove Item - Id = ",id)
-    this.http.delete (this.baseURL + "/api/groceries/" + id).subscribe(res => {
+  removeItem(item,index) {
+    console.log ("### REmove Item - Id = ",index)
+    this.http.delete (`${this.baseURL}/api/groceries/${item._id}`).subscribe(res => {
       this.items =res;
       this.dataChangeSubject.next(true);
     });
@@ -61,7 +62,7 @@ export class GroceriesServiceService {
   }
 
   addItem(item) {
-    this.http.post(this.baseURL + "/api/groceries", item).subscribe(res=>{
+    this.http.post(`${this.baseURL}/api/groceries/`, item).subscribe(res=>{
       this.items=res;
       this.dataChangeSubject.next(true);
     });
@@ -70,7 +71,7 @@ export class GroceriesServiceService {
 
   editItem(item, index) {
     console.log("Editing item =", item);
-    this.http.put(this.baseURL + "/api/groceries", item._id, item).subscribe(res=>{
+    this.http.put(`${this.baseURL}/api/groceries/${item._id}`,item).subscribe(res=>{
       this.items=res;
       this.dataChangeSubject.next(true);
   });

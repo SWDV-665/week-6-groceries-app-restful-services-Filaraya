@@ -17,7 +17,7 @@ export class Tab1Page {
   title = "Grocery";
   socialSharing: any;
 
-  items={}
+  items={};
   
   
   errorMessage: string;
@@ -49,16 +49,16 @@ export class Tab1Page {
     
   }
 
-  async removeItem(id: any) {
+  async removeItem(item: any,index: any) {
 /*
-    console.log("Removing Item - ", id, index);
+    console.log("Removing Item - ", item, index);
     const toast = this.toastCtrl.create({
       message: 'Removing Item - ' + index + " ...",
       duration: 3000
     });
     (await toast).present();
 */
-    this.dataService.removeItem(id);  
+    this.dataService.removeItem(item,index);  
   }
 
   async shareItem(item) {
