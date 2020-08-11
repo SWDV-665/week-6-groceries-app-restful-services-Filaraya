@@ -27,13 +27,13 @@ export class Tab1Page {
     public toastCtrl: ToastController, 
     public alertCtrl: AlertController, 
     public dataService: GroceriesServiceService, 
-    public inputDialogService: InputDialogServiceProvider,
-    public SocialSharing: SocialSharing
-  ){
-    dataService.dataChanged$.subscribe((dataChangeed: boolean)=>{
+    public inputDialogService: InputDialogServiceProvider, 
+    public SocialSharing: SocialSharing) {
+    dataService.dataChanged$.subscribe((dataChanged: boolean) => {
       this.loadItems();
     });
   }
+  
   
 
   ionViewDidLoad() {
@@ -49,7 +49,7 @@ export class Tab1Page {
     
   }
 
-  async removeItem(item: any,index: any) {
+  async removeItem(id) {
 /*
     console.log("Removing Item - ", item, index);
     const toast = this.toastCtrl.create({
@@ -58,7 +58,7 @@ export class Tab1Page {
     });
     (await toast).present();
 */
-    this.dataService.removeItem(item,index);  
+    this.dataService.removeItem(id);  
   }
 
   async shareItem(item) {

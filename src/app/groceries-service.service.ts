@@ -52,8 +52,8 @@ export class GroceriesServiceService {
   }
 
   
-  removeItem(item,index) {
-    console.log ("### REmove Item - Id = ",index)
+  removeItem(item) {
+    console.log ("### REmove Item - Id = ",item)
     this.http.delete (`${this.baseURL}/api/groceries/${item._id}`).subscribe(res => {
       this.items =res;
       this.dataChangeSubject.next(true);
