@@ -29,10 +29,16 @@
     "cordova-plugin-x-socialsharing": {
       "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-advanced-http": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {
     "es6-promise-plugin": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-file": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
   }

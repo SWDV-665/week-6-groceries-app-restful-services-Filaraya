@@ -467,8 +467,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.inputDialogService = inputDialogService;
         this.SocialSharing = SocialSharing;
         this.title = "Grocery";
-        this.message = "Grocery Item - Name: " + 'item.name' + " - Quantity: " + 'item.quantity';
-        this.subject = "Shared via Groceries app";
       }
 
       _createClass(Tab1Page, [{
@@ -509,31 +507,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "shareItem",
         value: function shareItem(item, index) {
-          this.socialSharing.share(this.message, this.subject).then(function () {
-            // Sharing via email is possible
-            console.log("Shared successfully!");
-          })["catch"](function (error) {
-            console.error("Error while sharing ", error);
-          });
-        } // this.socialSharing.shareViaEmail(message, subject, ['recipient@example.org']).then((res) => {
-        //   // Success
-        // console.log("Shared successfully!");
-        // }).catch((error: any) => {
-        //   console.error("Error while sharing ", error);
-        // });
-
-      }, {
-        key: "editItem",
-        value: function editItem(item, index) {
           return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-            var toast;
+            var toast, message, subject;
             return regeneratorRuntime.wrap(function _callee3$(_context3) {
               while (1) {
                 switch (_context3.prev = _context3.next) {
                   case 0:
-                    console.log("Edit Item - ", item, index);
+                    console.log("Sharing Item - ", item, index);
                     toast = this.toastCtrl.create({
-                      message: 'Editing Item - ' + index + " ...",
+                      message: 'Sharing Item - ' + index + " ...",
                       duration: 3000
                     });
                     _context3.next = 4;
@@ -542,14 +524,51 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 4:
                     _context3.sent.present();
 
-                    this.inputDialogService.showPrompt(item, index);
+                    message = "Grocery Item - Name: " + item.name + " - Quantity: " + item.quantity;
+                    subject = "Shared via Groceries app";
+                    this.socialSharing.share(message, subject).then(function () {
+                      // Sharing via email is possible
+                      console.log("Shared successfully!");
+                    })["catch"](function (error) {
+                      console.error("Error while sharing ", error);
+                    });
 
-                  case 6:
+                  case 8:
                   case "end":
                     return _context3.stop();
                 }
               }
             }, _callee3, this);
+          }));
+        }
+      }, {
+        key: "editItem",
+        value: function editItem(item, index) {
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            var toast;
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              while (1) {
+                switch (_context4.prev = _context4.next) {
+                  case 0:
+                    console.log("Edit Item - ", item, index);
+                    toast = this.toastCtrl.create({
+                      message: 'Editing Item - ' + index + " ...",
+                      duration: 3000
+                    });
+                    _context4.next = 4;
+                    return toast;
+
+                  case 4:
+                    _context4.sent.present();
+
+                    this.inputDialogService.showPrompt(item, index);
+
+                  case 6:
+                  case "end":
+                    return _context4.stop();
+                }
+              }
+            }, _callee4, this);
           }));
         }
       }, {

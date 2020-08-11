@@ -10,11 +10,16 @@
 
 <ion-content [fullscreen]="true">
   <div ionEvent="true"></div>
-  <h3 class="no-item" align-text= 'center' *ngIf="loadItems().length === 0">
+  
+<h3 class="no-item" align-text= 'center' *ngIf="loadItems().length === 0">
     No item available on the list!
   </h3>
+  
   <ion-list>
-    <ion-item-sliding *ngFor="let item of loadItems(); let i = index">
+    <ion-item-sliding 
+    *ngFor="let item of loadItems(); let i = index">
+  
+  
       <ion-item>
         <ion-list lines="inset">
           <ion-label>{{item.name}}</ion-label>

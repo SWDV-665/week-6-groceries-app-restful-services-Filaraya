@@ -275,8 +275,6 @@ let Tab1Page = class Tab1Page {
         this.inputDialogService = inputDialogService;
         this.SocialSharing = SocialSharing;
         this.title = "Grocery";
-        this.message = "Grocery Item - Name: " + 'item.name' + " - Quantity: " + 'item.quantity';
-        this.subject = "Shared via Groceries app";
     }
     loadItems() {
         return this.dataService.getItems();
@@ -293,19 +291,23 @@ let Tab1Page = class Tab1Page {
         });
     }
     shareItem(item, index) {
-        this.socialSharing.share(this.message, this.subject).then(() => {
-            // Sharing via email is possible
-            console.log("Shared successfully!");
-        }).catch((error) => {
-            console.error("Error while sharing ", error);
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            console.log("Sharing Item - ", item, index);
+            const toast = this.toastCtrl.create({
+                message: 'Sharing Item - ' + index + " ...",
+                duration: 3000
+            });
+            (yield toast).present();
+            let message = "Grocery Item - Name: " + item.name + " - Quantity: " + item.quantity;
+            let subject = "Shared via Groceries app";
+            this.socialSharing.share(message, subject).then(() => {
+                // Sharing via email is possible
+                console.log("Shared successfully!");
+            }).catch((error) => {
+                console.error("Error while sharing ", error);
+            });
         });
     }
-    // this.socialSharing.shareViaEmail(message, subject, ['recipient@example.org']).then((res) => {
-    //   // Success
-    // console.log("Shared successfully!");
-    // }).catch((error: any) => {
-    //   console.error("Error while sharing ", error);
-    // });
     editItem(item, index) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("Edit Item - ", item, index);

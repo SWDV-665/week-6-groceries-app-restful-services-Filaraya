@@ -17,36 +17,54 @@ export class Tab1Page {
   title = "Grocery";
   socialSharing: any;
 
+  items={}
+  
+  
+  errorMessage: string;
+
   constructor(
     public navCtrl: NavController, 
     public toastCtrl: ToastController, 
     public alertCtrl: AlertController, 
     public dataService: GroceriesServiceService, 
     public inputDialogService: InputDialogServiceProvider,
-    public SocialSharing: SocialSharing,
-    ) {
+    public SocialSharing: SocialSharing
+  ){
+    dataService.dataChanged$.subscribe((dataChangeed: boolean)=>{
+      this.loadItems();
+    });
+  }
+  
 
+  ionViewDidLoad() {
+    this.loadItems();
   }
 
   loadItems() {
-    return this.dataService.getItems();
+    this.dataService.getItems()
+    
+    .subscribe(
+      items => this.items = items,
+      error => this.errorMessage =<any>error);
+    
   }
 
-  async removeItem(item: any, index: string) {
-    console.log("Removing Item - ", item, index);
+  async removeItem(id: any) {
+/*
+    console.log("Removing Item - ", id, index);
     const toast = this.toastCtrl.create({
       message: 'Removing Item - ' + index + " ...",
       duration: 3000
     });
     (await toast).present();
-
-    this.dataService.removeItem(index);  
+*/
+    this.dataService.removeItem(id);  
   }
 
-  async shareItem(item: { name: string; quantity: string; }, index: string) {
-    console.log("Sharing Item - ", item, index);
+  async shareItem(item) {
+    console.log("Sharing Item - ", item);
     const toast = this.toastCtrl.create({
-      message: 'Sharing Item - ' + index + " ...",
+      message: 'Sharing Item - ' + item.name + " ...",
       duration: 3000
     });
 
@@ -65,15 +83,19 @@ export class Tab1Page {
   }
 
   
-  async editItem(item: any, index: string) {
+  async editItem(item,index) {
+    
     console.log("Edit Item - ", item, index);
     const toast = this.toastCtrl.create({
       message: 'Editing Item - ' + index + " ...",
       duration: 3000
     });
     (await toast).present();
+    
     this.inputDialogService.showPrompt(item, index);
   }  
+  
+  
 
   addItem() {
     console.log("Adding Item");
