@@ -23,11 +23,13 @@ export class InputDialogServiceProvider {
       inputs: [
         {
           name: 'name',
+          type: 'text',
           placeholder: 'Name',
           value: item ? item.name : null
         },
         {
           name: 'quantity',
+          type: 'text',
           placeholder: 'Quantity',
           value: item ? item.quantity :null
 
@@ -36,26 +38,30 @@ export class InputDialogServiceProvider {
       buttons: [
         {
           text: 'Cancel',
-          handler: data => {
+          role: 'cancel',
+          handler: (data) => {
             console.log('Cancel clicked');
           }
         },
         {
           text: 'Save',
-          handler: item => {
-            console.log('Saved clicked', item);
+          handler: (data) => {
+            console.log('Saved clicked', data);
             if (index !== undefined) {
-              this.dataService.editItem(item, index);
+              item.name = data.name;
+              item.quantity = data.quantity;
+
+              this.dataService.editItem(item,index);
             }
             else {
-              this.dataService.addItem(item);
+              this.dataService.addItem(data);
             }
 
           }
         }
       ]
     });
-    prompt.present();
+    return prompt.present();
   }
 
 }

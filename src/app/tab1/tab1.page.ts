@@ -17,7 +17,7 @@ export class Tab1Page {
   title = "Grocery";
   socialSharing: any;
 
-  items={};
+  items = [];
   
   
   errorMessage: string;
@@ -49,26 +49,26 @@ export class Tab1Page {
     
   }
 
-  async removeItem(id) {
-/*
-    console.log("Removing Item - ", item, index);
+  async removeItem(id,item){
+
+    console.log("Removing Item - ", id.name);
     const toast = this.toastCtrl.create({
-      message: 'Removing Item - ' + index + " ...",
+      message: 'Removing Item - ' + id.name + " ...",
       duration: 3000
     });
     (await toast).present();
-*/
+
     this.dataService.removeItem(id);  
   }
 
-  async shareItem(item) {
-    console.log("Sharing Item - ", item);
-    const toast = this.toastCtrl.create({
-      message: 'Sharing Item - ' + item.name + " ...",
+  async shareItem(item,index) {
+    console.log("Sharing Item - ", item,index);
+    const toast = await this.toastCtrl.create({
+      message: 'Sharing Item - ' + index + " ...",
       duration: 3000
     });
 
-    (await toast).present();
+    toast.present();
 
     let message = "Grocery Item - Name: " + item.name + " - Quantity: " + item.quantity;
     let subject = "Shared via Groceries app";
@@ -82,12 +82,12 @@ export class Tab1Page {
 
   }
 
-  
+  // Edit Item
   async editItem(item,index) {
     
     console.log("Edit Item - ", item, index);
     const toast = this.toastCtrl.create({
-      message: 'Editing Item - ' + index + " ...",
+      message: 'Editing Item - ' + item.name + " ...",
       duration: 3000
     });
     (await toast).present();
@@ -96,7 +96,7 @@ export class Tab1Page {
   }  
   
   
-
+  // Add Item
   addItem() {
     console.log("Adding Item");
     this.inputDialogService.showPrompt();
